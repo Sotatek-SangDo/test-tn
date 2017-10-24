@@ -8,6 +8,9 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+var VueResource = require('vue-resource');
+
+window.Vue.use(VueResource);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,6 +19,8 @@ window.Vue = require('vue');
  */
 
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('test-exam', require('./components/TestExam.vue'));
+Vue.http.headers.common['X-CSRF-TOKEN'] = $('#token').attr('content');
 
 const app = new Vue({
     el: '#app'
