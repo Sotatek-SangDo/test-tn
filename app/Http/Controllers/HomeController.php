@@ -165,4 +165,14 @@ class HomeController extends Controller
         $user->save();
         return redirect()->route('home');
     }
+
+    public function showInfo()
+    {
+        $user = User::find(Auth::user()->id);
+        $results = ResultTest::selectRaw('date, subjects.name, mark, result_tests.exam_id')
+                            ->join('subjects', 'subjects.id', '=', 'result_tests.subject_id')
+                            ->where('result_tests.user_id', $user['id'])
+                            ->get();
+        return view('layouts.show_info', ['user' => $user, 'results' => $results ]);
+    }
 }

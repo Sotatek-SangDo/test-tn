@@ -27,6 +27,7 @@ Route::post('/manage/logout','Manage\AuthController@logout')->name('manage-logou
 
 Route::get('/user/update', 'HomeController@updateLayout')->name('update-user');
 Route::post('/user/update', 'HomeController@updateUser')->name('updated');
+Route::get('/user/info', 'HomeController@showInfo')->name('info');
 
 Route::group(['prefix'=> 'manage', 'middleware' => 'admin'], function () {
     Route::get('/','Manage\AuthController@index')->name('manage');

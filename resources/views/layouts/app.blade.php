@@ -60,6 +60,9 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
+                                        <a href="{{ route('info') }}">Thông tin tài khoản</a>
+                                    </li>
+                                    <li>
                                         <a href="{{ route('update-user') }}">Update tài khoản</a>
                                     </li>
                                     <li>
