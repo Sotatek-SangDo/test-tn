@@ -34,6 +34,9 @@
             font-weight: 600;
         }
     </style>
+     <script type="text/javascript">
+        window.localStorage.removeItem('start');
+    </script>
 @endsection
 @section('content')
 <div class="container">

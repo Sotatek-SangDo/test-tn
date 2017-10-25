@@ -6,6 +6,7 @@
             <div class="test-header">
                 <h1>Bài kiểm tra môn {{ subject }}</h1>
                 <span>Thời gian: {{ hours }} phút</span>
+                <div class="note"> (Phải chọn hết đáp án cho tất cả các câu hỏi trước phi hết giờ.)</div>
             </div>
             <div class="test-content">
                 <form method="post" action="/get-mark">
@@ -56,7 +57,7 @@
             </div>
         </div>
         <div v-else class="no-exam">Khong co bai</div>
-        <div class="sentence" v-if="start == 180 || isShow">
+        <div class="sentence" v-if="start <= 180 || isShow">
             <p class="text-header">Câu chưa làm: </p>
             <ul class="list-group display-flex">
                 <li class="list-group-item" v-for="s in sentences" v-if="s">{{ s }}</li>
@@ -130,14 +131,16 @@
                 let el = document.getElementById('ct');
                 let end = 0
                 let refresh = 1000;
+                if(window.localStorage.getItem('start') != null) {
+                    this.start = window.localStorage.getItem('start');
+                    window.localStorage.removeItem('start');
+                }
                 if( this.start >= end ) {
                     if(this.start == 60) {
                         this.displayTime(0)
                         el.style.opacity = 1;
                     }
                     setTimeout(function () { this.displayCountTime() }.bind(this), refresh )
-                } else {
-                    this.alarm();
                 }
             },
             hideTime() {
@@ -162,6 +165,7 @@
                 let tt = this.displayTimes();
             },
             checkSubmit() {
+                this.checkSentence();
                 if(!_.sum(this.sentences)) {
                     $('form').submit();
                 } else {
@@ -180,13 +184,17 @@
                 _.forEach(self.formData, function(value, key) {
                     self.sentences[value -1] = 0;
                 })
+            },
+            leaving() {
+                window.localStorage.setItem('start', this.start);
             }
         },
         watch: {
             value(val) {
             },
             start(val) {
-                if(!val) {
+                if(!this.start) {
+                    this.alarm();
                     this.checkSubmit();
                 }
                 this.checkSentence();
@@ -194,10 +202,18 @@
         },
         mounted() {
             this.init();
+            window.onbeforeunload = this.leaving;
         },
     }
 </script>
 <style scoped>
+    .note {
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-size: 1.5rem;
+        color: #000;
+    }
     h1 {
         width: 100%;
         text-align: center;
