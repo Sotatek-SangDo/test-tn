@@ -10,6 +10,8 @@ use App\ExamResult;
 use App\User;
 use Auth;
 use Log;
+use Carbon\Carbon;
+use App\ResultTest;
 
 class HomeController extends Controller
 {
@@ -21,6 +23,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->now = Carbon::now();
     }
 
     /**
@@ -116,7 +119,6 @@ class HomeController extends Controller
         $num = $results['numResult'];
         $examResult = $results['examResult'];
         $oneMarkOfSentence = 10 / $num;
-        Log::info($oneMarkOfSentence);
         for($i = 0 ; $i < count($data); $i++) {
             if($examResult[$i]['ans'] == $data[$i+1]) {
                 $mark += $oneMarkOfSentence;
@@ -124,10 +126,22 @@ class HomeController extends Controller
                 array_push($error, $i+1);
             }
         }
+        $this->setMark($mark, $subjectId, $examId);
         return [
             'error' => $error,
             'mark' => $mark
         ];
+    }
+    public function setMark($mark, $subjectId, $examId)
+    {
+        $result = new ResultTest();
+        $result->subject_id = $subjectId;
+        $result->user_id = Auth()->user()->id;
+        $result->date = $this->now;
+        $result->mark = $mark;
+        $result->exam_id = $examId;
+        $result->save();
+        return true;
     }
 
     public function getExamResult($subjectId, $examId, $class)

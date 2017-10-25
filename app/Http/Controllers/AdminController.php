@@ -16,6 +16,8 @@ use DB;
 use App\ExamResult;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use App\ResultTest;
+use Auth;
 
 class AdminController extends Controller
 {
@@ -177,5 +179,17 @@ class AdminController extends Controller
             return view('manage.upload_img_result', ['res' => $res]);
         }
         return back();
+    }
+
+    public function userInfo($email)
+    {
+        $user = User::selectRaw('id, name, email')
+                    ->where('email', $email)
+                    ->first();
+        $results = ResultTest::selectRaw('date, subjects.name, mark, result_tests.exam_id')
+                            ->join('subjects', 'subjects.id', '=', 'result_tests.subject_id')
+                            ->where('result_tests.user_id', $user['id'])
+                            ->get();
+        return view('manage.show_info', ['user' => $user, 'results' => $results ]);
     }
 }

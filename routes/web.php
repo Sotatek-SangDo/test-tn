@@ -44,4 +44,6 @@ Route::group(['prefix'=> 'manage', 'middleware' => 'admin'], function () {
     Route::get('/upload-img', 'AdminController@ShowUploadImg')->name('upload-img');
 
     Route::post('/upload-img', 'AdminController@uploadImg')->name('post-img');
+
+    Route::get('/info-user/{email}', 'AdminController@userInfo')->name('info-user');
 });

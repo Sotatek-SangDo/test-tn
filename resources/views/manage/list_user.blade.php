@@ -18,7 +18,7 @@
                     @if(count($users))
                         @foreach($users as $key => $user)
                             <tr>
-                                <td class="mdl-data-table__cell--non-numeric">{{ $user['name'] }}</td>
+                                <td class="mdl-data-table__cell--non-numeric"><a href="/manage/info-user/{{$user['email']}}">{{ $user['name'] }}</a></td>
                                 <td>{{ $user['email'] }}</td>
                                 <td>
                                     <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
