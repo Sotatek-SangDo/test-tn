@@ -15,6 +15,10 @@
                         <div class="mdl-button mdl-js-button mdl-button--raised" @click="isShowAns=true" v-if="!isShowAns">Chọn đáp án</div>
                         <div class="mdl-button mdl-js-button mdl-button--raised" @click="isShowAns=false" v-if="isShowAns">Ẩn chọn</div>
                     </div>
+                    <div class="button-show">
+                        <div class="mdl-button mdl-js-button mdl-button--raised" @click="isShow=true" v-if="!isShow">Câu chưa làm</div>
+                        <div class="mdl-button mdl-js-button mdl-button--raised" @click="isShow=false" v-if="isShow">Ẩn</div>
+                    </div>
                     <div class="anwser" v-if="isShowAns">
                         <ul class="list-group" for="ans-left">
                             <li class="list-group-item" v-for="anwser in anwsers" :id="'ans'+anwser">{{ anwser }}.
@@ -61,7 +65,6 @@
             </div>
         </div>
         <div class="sentence" v-if="start <= 180 || isShow">
-            <p class="text-header">Câu chưa làm: </p>
             <ul class="list-group display-flex">
                 <li class="list-group-item" v-for="s in sentences" v-if="s"><a :href="'#ans'+s">{{ s }}</a></li>
             </ul>
@@ -256,6 +259,11 @@
         top: 15%;
         left: 1%;
     }
+    .button-show {
+        position: fixed;
+        top: 15%;
+        right: 1%;
+    }
     .photo {
         margin-left: 6%;
         max-width: 100%;
@@ -305,7 +313,7 @@
     .sentence {
         position: fixed;
         width: 10%;
-        top: 10%;
+        top: 20%;
         right: 1%;
     }
     .display-flex {
@@ -322,6 +330,16 @@
         .display-flex li {
             padding: 5px;
             width: 9% !important;
+        }
+        .button-change {
+            top: 94%;
+        }
+        .button-show {
+            top: 94%;
+        }
+        .anwser{
+            top: 50%;
+            width: 45%;
         }
         .sentence {
             top: 8%;
