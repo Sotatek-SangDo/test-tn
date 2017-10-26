@@ -91,6 +91,7 @@ class HomeController extends Controller
     {
         $exam = Exam::select('exam_id')
                     ->where('subject_id', $subjectId)
+                    ->where('class', Auth::user()->class)
                     ->groupBy('subject_id')
                     ->groupBy('exam_id')
                     ->first();
