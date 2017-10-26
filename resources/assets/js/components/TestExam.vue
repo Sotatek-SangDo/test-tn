@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <h2 id='ct' style="background-color: #FFFF00; opacity: 1; text-align: center" >{{ time}}</h2>
-        <embed src="http://test-tn.local/storage/1508902886071.mp3" style="opacity: 0; display: none;" id="sound">
+        <embed src="http://thitracnghiem.cf/storage/15090159220114.mp3" style="opacity: 0; display: none;" id="sound">
         <div class="exams">
             <div class="test-header">
                 <h1>Bài kiểm tra môn {{ subject }}</h1>
