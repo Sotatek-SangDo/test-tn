@@ -39,125 +39,69 @@
             <div class="upload-exel col-md-12">
                 <form method="post" action="{{ route('post-exam') }}" id="math" enctype="multipart/form-data">
                     {{ csrf_field() }}
-                    <label class="col-xs-2 col-md-2" style="padding: 28px 0"> Upload de toan: </label>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--file">
-                        <input class="mdl-textfield__input upload" placeholder="File" type="text" id="uploadFile" readonly/>
-                        <input type="hidden" name="action" value="math">
-                        <div class="mdl-button mdl-button--primary mdl-button--icon mdl-button--file">
-                            <i class="material-icons">attach_file</i>
-                            <input type="file" id="uploadBtn" name="import" accept=".xlsx,.xls" onchange="changeUpload('#uploadBtn')">
+                    <label class="col-xs-2 col-md-2" style="padding: 28px 0"> Upload de : </label>
+                    <div class="col-xs-10 col-md-10">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth class">
+                            <input class="mdl-textfield__input query-form" type="text" name="class" id="time" value="10" readonly tabIndex="-1">
+                            <label for="time" class="mdl-textfield__label">Lớp</label>
+                            <ul for="time" class="mdl-menu mdl-menu--bottom-lèt mdl-js-menu">
+                                <li class="mdl-menu__item">10</li>
+                                <li class="mdl-menu__item">11</li>
+                                <li class="mdl-menu__item">12</li>
+                            </ul>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth class">
+                            <input class="mdl-textfield__input query-form" type="text" name="action" id="action" value="math" readonly tabIndex="-1">
+                            <label for="action" class="mdl-textfield__label">Mon hoc</label>
+                            <ul for="action" class="mdl-menu mdl-menu--bottom-lèt mdl-js-menu">
+                                <li class="mdl-menu__item">math</li>
+                                <li class="mdl-menu__item">math1</li>
+                                <li class="mdl-menu__item">ly</li>
+                                <li class="mdl-menu__item">hoa</li>
+                                <li class="mdl-menu__item">anh</li>
+                            </ul>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="num" name="num" placeholder="Nhập số câu của đề">
+                            <label class="mdl-textfield__label" for="num"></label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--file">
+                            <input class="mdl-textfield__input upload" placeholder="upload ảnh đề thi" type="text" id="uploadFile" readonly/>
+                            <div class="mdl-button mdl-button--primary mdl-button--icon mdl-button--file">
+                                <i class="material-icons">attach_file</i>
+                                <input type="file" id="uploadBtn" name="import[]" accept="image/*" onchange="changeUpload('#uploadBtn')">
+                            </div>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--file">
+                            <input class="mdl-textfield__input upload" placeholder="upload ảnh đề thi" type="text" id="uploadFile" readonly/>
+                            <div class="mdl-button mdl-button--primary mdl-button--icon mdl-button--file">
+                                <i class="material-icons">attach_file</i>
+                                <input type="file" id="uploadImg" name="import[]" accept="image/*" onchange="changeUpload('#uploadImg')">
+                            </div>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--file">
+                            <input class="mdl-textfield__input upload" placeholder="upload ảnh đề thi" type="text" id="uploadFile" readonly/>
+                            <div class="mdl-button mdl-button--primary mdl-button--icon mdl-button--file">
+                                <i class="material-icons">attach_file</i>
+                                <input type="file" id="uploadBtn1" name="import[]" accept="image/*" onchange="changeUpload('#uploadBtn1')">
+                            </div>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--file">
+                            <input class="mdl-textfield__input upload" placeholder="upload ảnh đề thi" type="text" id="uploadFile" readonly/>
+                            <div class="mdl-button mdl-button--primary mdl-button--icon mdl-button--file">
+                                <i class="material-icons">attach_file</i>
+                                <input type="file" id="uploadBtn2" name="import[]" accept="image/*" onchange="changeUpload('#uploadBtn2')">
+                            </div>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--file">
+                            <input class="mdl-textfield__input upload" placeholder="upload ảnh đề thi" type="text" id="uploadFile" readonly/>
+                            <div class="mdl-button mdl-button--primary mdl-button--icon mdl-button--file">
+                                <i class="material-icons">attach_file</i>
+                                <input type="file" id="uploadBtn3" name="import[]" accept="image/*" onchange="changeUpload('#uploadBtn3')">
+                            </div>
                         </div>
                     </div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth class">
-                        <input class="mdl-textfield__input query-form" type="text" name="class" id="time" value="10" readonly tabIndex="-1">
-                        <label for="time" class="mdl-textfield__label">Lớp</label>
-                        <ul for="time" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                            <li class="mdl-menu__item">10</li>
-                            <li class="mdl-menu__item">11</li>
-                            <li class="mdl-menu__item">12</li>
-                        </ul>
-                    </div>
-                    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Upload</button>
-                </form>
-            </div>
-
-            <div class="upload-exel col-md-12">
-                <form method="post" action="{{ route('post-exam') }}" id="math" enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    <label class="col-xs-2 col-md-2" style="padding: 28px 0"> Upload de toan1: </label>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--file">
-                        <input class="mdl-textfield__input upload" placeholder="File" type="text" id="uploadFile" readonly/>
-                        <input type="hidden" name="action" value="math1">
-                        <div class="mdl-button mdl-button--primary mdl-button--icon mdl-button--file">
-                            <i class="material-icons">attach_file</i>
-                            <input type="file" id="uploadBtn1" name="import" accept=".xlsx,.xls" onchange="changeUpload('#uploadBtn1')">
-                        </div>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth class">
-                        <input class="mdl-textfield__input query-form" type="text" name="class" id="time1" value="10" readonly tabIndex="-1">
-                        <label for="time1" class="mdl-textfield__label">Lớp</label>
-                        <ul for="time1" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                            <li class="mdl-menu__item">10</li>
-                            <li class="mdl-menu__item">11</li>
-                            <li class="mdl-menu__item">12</li>
-                        </ul>
-                    </div>
-                    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Upload</button>
-                </form>
-            </div>
-
-            <div class="upload-exel col-md-12">
-                <form method="post" action="{{ route('post-exam') }}" id="math" enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    <label class="col-xs-2 col-md-2" style="padding: 28px 0"> Upload de ly: </label>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--file">
-                        <input class="mdl-textfield__input upload" placeholder="File" type="text" id="uploadFile" readonly/>
-                        <input type="hidden" name="action" value="ly">
-                        <div class="mdl-button mdl-button--primary mdl-button--icon mdl-button--file">
-                            <i class="material-icons">attach_file</i>
-                            <input type="file" id="uploadBtnL" name="import" accept=".xlsx,.xls" onchange="changeUpload('#uploadBtnL')">
-                        </div>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth class">
-                        <input class="mdl-textfield__input query-form" type="text" name="class" id="time2" value="10" readonly tabIndex="-1">
-                        <label for="time2" class="mdl-textfield__label">Lớp</label>
-                        <ul for="time2" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                            <li class="mdl-menu__item">10</li>
-                            <li class="mdl-menu__item">11</li>
-                            <li class="mdl-menu__item">12</li>
-                        </ul>
-                    </div>
-                    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Upload</button>
-                </form>
-            </div>
-
-            <div class="upload-exel col-md-12">
-                <form method="post" action="{{ route('post-exam') }}" id="math" enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    <label class="col-xs-2 col-md-2" style="padding: 28px 0"> Upload de hoa: </label>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--file">
-                        <input class="mdl-textfield__input upload" placeholder="File" type="text" id="uploadFile" readonly/>
-                        <input type="hidden" name="action" value="hoa">
-                        <div class="mdl-button mdl-button--primary mdl-button--icon mdl-button--file">
-                            <i class="material-icons">attach_file</i>
-                            <input type="file" id="uploadBtnH" name="import" accept=".xlsx,.xls" onchange="changeUpload('#uploadBtnH')">
-                        </div>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth class">
-                        <input class="mdl-textfield__input query-form" type="text" name="class" id="time3" value="10" readonly tabIndex="-1">
-                        <label for="time3" class="mdl-textfield__label">Lớp</label>
-                        <ul for="time3" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                            <li class="mdl-menu__item">10</li>
-                            <li class="mdl-menu__item">11</li>
-                            <li class="mdl-menu__item">12</li>
-                        </ul>
-                    </div>
-                    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Upload</button>
-                </form>
-            </div>
-
-            <div class="upload-exel col-md-12">
-                <form method="post" action="{{ route('post-exam') }}" id="math" enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    <label class="col-xs-2 col-md-2" style="padding: 28px 0"> Upload de anh: </label>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--file">
-                        <input class="mdl-textfield__input upload" placeholder="File" type="text" id="uploadFile" readonly/>
-                        <input type="hidden" name="action" value="anh">
-                        <div class="mdl-button mdl-button--primary mdl-button--icon mdl-button--file">
-                            <i class="material-icons">attach_file</i>
-                            <input type="file" id="uploadBtnA" name="import" accept=".xlsx,.xls" onchange="changeUpload('#uploadBtnA')">
-                        </div>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth class">
-                        <input class="mdl-textfield__input query-form" type="text" name="class" id="time4" value="10" readonly tabIndex="-1">
-                        <label for="time4" class="mdl-textfield__label">Lớp</label>
-                        <ul for="time4" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                            <li class="mdl-menu__item">10</li>
-                            <li class="mdl-menu__item">11</li>
-                            <li class="mdl-menu__item">12</li>
-                        </ul>
-                    </div>
-                    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Upload</button>
+                    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Tải lên</button>
                 </form>
             </div>
         </div>

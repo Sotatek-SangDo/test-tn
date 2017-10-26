@@ -18,11 +18,14 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use App\ResultTest;
 use Auth;
+use App\Http\Services\UploadService;
+use App\ExamPhoto;
 
 class AdminController extends Controller
 {
-    public function __construct()
+    public function __construct(UploadService $upload)
     {
+        $this->uploadService = $upload;
     }
 
     public function layoutUploadExam()
@@ -35,29 +38,31 @@ class AdminController extends Controller
         if($request->hasFile('import'))
         {
             $action = $request['action'];
-            $subjectId = $this->getSubjectID($action);
             $examId = $this->getExamID($action);
-            $class = $request['class'];
-            $path = $request->file('import')->getRealPath();
-            $data = Excel::load($path, function($reader) {
-            })->get();
-            if(!empty($data) && $data->count()){
-                $data = $data->toArray();
-                for($i=0;$i<count($data);$i++) {
-                    unset($data[$i]['0']);
-                    $data[$i]['subject_id'] = $subjectId;
-                    $data[$i]['exam_id'] = $examId;
-                    $data[$i]['class'] = $class;
-                    $dataImported[] = $data[$i];
-                }
-            }
-            Exam::insert($dataImported);
+            $exam = new Exam();
+            $exam->subject_id = $this->getSubjectID($action);
+            $exam->exam_id = $examId;
+            $exam->class = $request['class'];
+            $exam->num_sentence = $request['num'];
+            $exam->save();
+            $this->addExamPhoto($examId, $request['import']);
             Session::put('success', 'Upload exam success');
             return redirect()->route('list-exam');
         } else {
             return back();
         }
 
+    }
+
+    public function addExamPhoto($examId, $arrPhoto)
+    {
+        foreach ($arrPhoto as $photo) {
+            $examPhoto = new ExamPhoto();
+            $examPhoto->exam_id = $examId;
+            $examPhoto->photo = $this->uploadService->uploadImg($photo);
+            $examPhoto->save();
+        }
+        return true;
     }
 
     public function getSubjectID($action)
@@ -106,7 +111,7 @@ class AdminController extends Controller
 
     public function ShowExam()
     {
-        $exams = Exam::selectRaw('exams.exam_id, subjects.name, subjects.time_test, exams.class as class,' . DB::raw('COUNT(exam_id)') . 'as num_exam')
+        $exams = Exam::selectRaw('exams.exam_id, subjects.name, subjects.time_test, exams.class as class')
                         ->join('subjects', 'subjects.id', '=', 'exams.subject_id')
                         ->groupBy('exams.exam_id')
                         ->groupBy('subjects.name')
@@ -148,10 +153,11 @@ class AdminController extends Controller
 
     public function ShowResult()
     {
-        $results = ExamResult::selectRaw('exam_results.exam_id, subjects.name, subjects.time_test,' . DB::raw('COUNT(exam_id)') . 'as num_exam')
+        $results = ExamResult::selectRaw('exam_results.exam_id, subjects.name, subjects.time_test, exam_results.class')
                         ->join('subjects', 'subjects.id', '=', 'exam_results.subject_id')
                         ->groupBy('exam_results.exam_id')
                         ->groupBy('subjects.name')
+                        ->groupBy('exam_results.class')
                         ->groupBy('subjects.time_test')
                         ->paginate(Consts::LIMIT);
         return view('manage.result_list', ['results' => $results]);

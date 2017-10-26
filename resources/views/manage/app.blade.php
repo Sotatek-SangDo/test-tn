@@ -50,9 +50,6 @@
                                     <li>
                                         <a href="{{ route('upload-exam') }}">Đề Thi</a>
                                     </li>
-                                    <li>
-                                        <a href="{{ route('upload-img') }}">Hình ảnh</a>
-                                    </li>
                                 </ul>
                            </li>
                            <li class="dropdown">

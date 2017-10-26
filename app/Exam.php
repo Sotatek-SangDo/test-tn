@@ -9,25 +9,16 @@ class Exam extends Model
     public $table = 'exams';
 
     public $fillable = [
-        'stt',
-        'content',
-        'ans_a',
-        'ans_b',
-        'ans_c',
-        'ans_d',
+        'class',
         'subject_id',
+        'num_sentence',
         'exam_id',
     ];
 
     protected $casts = [
-        'id' => 'integer',
-        'stt' => 'string',
-        'content' => 'string',
-        'ans_a' => 'string',
-        'ans_b' => 'string',
-        'ans_c' => 'string',
-        'ans_d' => 'string',
+        'class' => 'string',
         'subject_id' => 'integer',
+        'num_sentence' => 'integer',
         'exam_id' => 'string',
     ];
 
@@ -37,13 +28,9 @@ class Exam extends Model
      * @var array
      */
     public static $rules = [
-        'stt'     => 'string',
-        'content' => 'string',
-        'ans_a'   => 'string',
-        'ans_b'   => 'string',
-        'ans_c'   => 'string',
-        'ans_d'   => 'string',
+        'class' => 'string',
         'subject_id' => 'integer',
+        'num_sentence' => 'integer',
         'exam_id' => 'string',
     ];
 }

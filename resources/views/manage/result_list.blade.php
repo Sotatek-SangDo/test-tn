@@ -12,7 +12,7 @@
                         <th class="mdl-data-table__cell--non-numeric">Mã Đề</th>
                         <th>Môn</th>
                         <th>Thời gian làm bài</th>
-                        <th>Số câu</th>
+                        <th>Lop</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -23,7 +23,7 @@
                                 <td class="mdl-data-table__cell--non-numeric">{{ $result['exam_id'] }}</td>
                                 <td>{{ $result['name'] }}</td>
                                 <td>{{ $result['time_test'] }}</td>
-                                <td>{{ $result['num_exam'] }}</td>
+                                <td>{{ $result['class'] }}</td>
                                 <td>
                                     <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
                                         <i class="material-icons">delete</i>

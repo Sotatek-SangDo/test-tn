@@ -47,7 +47,7 @@
                         <th class="mdl-data-table__cell--non-numeric">Mã Đề</th>
                         <th>Môn</th>
                         <th>Thời gian làm bài</th>
-                        <th>Số câu</th>
+                        <th>Lop</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -59,7 +59,7 @@
                                 <td class="mdl-data-table__cell--non-numeric">{{ $exam['exam_id'] }}</td>
                                 <td>{{ $exam['name'] }}</td>
                                 <td>{{ $exam['time_test'] }}</td>
-                                <td>{{ $exam['num_exam'] }}</td>
+                                <td>{{ $exam['class'] }}</td>
                                 <td>
                                     <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
                                         <i class="material-icons">delete</i>

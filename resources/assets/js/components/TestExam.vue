@@ -2,7 +2,7 @@
     <div class="container">
         <h2 id='ct' style="background-color: #FFFF00; opacity: 1; text-align: center" >{{ time}}</h2>
         <embed src="http://test-tn.local/storage/1508902886071.mp3" style="opacity: 0; display: none;" id="sound">
-        <div class="exams" v-if="exams.length">
+        <div class="exams">
             <div class="test-header">
                 <h1>Bài kiểm tra môn {{ subject }}</h1>
                 <span>Thời gian: {{ hours }} phút</span>
@@ -11,39 +11,43 @@
             <div class="test-content">
                 <form method="post" action="/get-mark">
                     <input type="hidden" name="_token" :value="token">
-                    <div class="content-item" v-for="exam in exams">
-                        <div class="question">
-                            <span>{{ exam['stt']}}. </span>
-                            <span>{{ exam['content'] }}</span>
-                        </div>
-                        <div class="anwser">
-                            <div class="anwser__item">
-                                <label class="mdl-radio">
-                                    <input type="radio" :name="'ans['+exam['stt']+']'" value="a" class="mdl-radio__button">
-                                    <span class = "mdl-radio__label">A. {{ exam['ans_a'] }}</span>
-                                </label>
-                            </div>
-                            <div class="anwser__item">
-                                <label class="mdl-radio">
-                                    <input type="radio" :name="'ans['+exam['stt']+']'" value="b" class="mdl-radio__button">
-                                    <span class = "mdl-radio__label">B. {{ exam['ans_b'] }}</span>
-                                </label>
-                            </div>
-                            <div class="anwser__item">
-                                <label class="mdl-radio">
-                                    <input type="radio" :name="'ans['+exam['stt']+']'" value="c" class="mdl-radio__button">
-                                    <span class = "mdl-radio__label">C. {{ exam['ans_c'] }}</span>
-                                </label>
-                            </div>
-                            <div class="anwser__item">
-                                <label class="mdl-radio">
-                                    <input type="radio" :name="'ans['+exam['stt']+']'" value="d" class="mdl-radio__button">
-                                    <span class = "mdl-radio__label">D. </span>{{ exam['ans_d'] }}
-                                </label>
-                            </div>
-                        </div>
-                        <div v-if="hasPicture(exam['picture'])" class="picture">
-                            <img :src="exam['picture']">
+                    <div class="button-change">
+                        <div class="mdl-button mdl-js-button mdl-button--raised" @click="isShowAns=true" v-if="!isShowAns">Chọn đáp án</div>
+                        <div class="mdl-button mdl-js-button mdl-button--raised" @click="isShowAns=false" v-if="isShowAns">Ẩn chọn</div>
+                    </div>
+                    <div class="anwser" v-if="isShowAns">
+                        <ul class="list-group" for="ans-left">
+                            <li class="list-group-item" v-for="anwser in anwsers" :id="'ans'+anwser">{{ anwser }}.
+                                <div class="anwser__item">
+                                    <label class="mdl-radio">
+                                        <input type="radio" :name="'ans['+anwser+']'" value="a" class="mdl-radio__button">
+                                        <span class = "mdl-radio__label">A</span>
+                                    </label>
+                                </div>
+                                <div class="anwser__item">
+                                    <label class="mdl-radio">
+                                        <input type="radio" :name="'ans['+anwser+']'" value="b" class="mdl-radio__button">
+                                        <span class = "mdl-radio__label">B</span>
+                                    </label>
+                                </div>
+                                <div class="anwser__item">
+                                    <label class="mdl-radio">
+                                        <input type="radio" :name="'ans['+anwser+']'" value="c" class="mdl-radio__button">
+                                        <span class = "mdl-radio__label">C</span>
+                                    </label>
+                                </div>
+                                <div class="anwser__item">
+                                    <label class="mdl-radio">
+                                        <input type="radio" :name="'ans['+anwser+']'" value="d" class="mdl-radio__button">
+                                        <span class = "mdl-radio__label">D</span>
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="photo">
+                        <div class="photo-item" v-for="img in photo">
+                            <img :src="img.photo">
                         </div>
                     </div>
                     <input type="hidden" name="_action" value="get-mark">
@@ -56,11 +60,10 @@
                 </form>
             </div>
         </div>
-        <div v-else class="no-exam">Khong co bai</div>
         <div class="sentence" v-if="start <= 180 || isShow">
             <p class="text-header">Câu chưa làm: </p>
             <ul class="list-group display-flex">
-                <li class="list-group-item" v-for="s in sentences" v-if="s">{{ s }}</li>
+                <li class="list-group-item" v-for="s in sentences" v-if="s"><a :href="'#ans'+s">{{ s }}</a></li>
             </ul>
         </div>
     </div>
@@ -75,7 +78,9 @@
         },
         data() {
             return {
+                isShowAns: false,
                 exams: [],
+                photo: [],
                 subject: '',
                 hours: '',
                 step : 0.1,
@@ -90,6 +95,7 @@
                 formData : [],
                 isZero: 1,
                 isShow: false,
+                anwsers: [],
             }
         },
         computed: {
@@ -102,10 +108,13 @@
                 let url = `/test/${this.value}`;
                 this.token = $('#token').attr('content');
                 this.$http.get(url).then((response) => {
-                    this.exams = response.data;
+                    this.exams = response.data.exam;
+                    this.photo = response.data.photo;
                     if(this.exams.length) {
                         let i = 1;
-                        this.sentences = Array.from(Array(this.exams.length), ()=> i++);
+                        let j = 1;
+                        this.sentences = Array.from(Array(this.exams[0].num_sentence), ()=> i++);
+                        this.anwsers = Array.from(Array(this.exams[0].num_sentence), ()=> j++);
                         this.subject = this.exams[0].name;
                         this.exam_id = this.exams[0].exam_id;
                         this.subjectId = this.exams[0].id;
@@ -234,41 +243,60 @@
         display: block;
         margin-top: 10%;
     }
-    .content-item {
-        display: block;
-        width: 100%;
-        clear: both;
-        min-height: 170px;
-    }
-    .question {
+    .photo-item {
+        margin-top: 5px;
         width: 100%;
     }
-    .question span {
-        font-size: 18px;
-        color: #000;
-        font-weight: 600;
+    .photo-item img{
+        width: 100%;
+        height: auto;
+    }
+    .button-change {
+        position: fixed;
+        top: 15%;
+        left: 1%;
+    }
+    .photo {
+        margin-left: 6%;
+        max-width: 100%;
     }
     .anwser {
-        width: 70%;
+        position: fixed;
+        top: 20%;
+        left: 1%;
+        width: 14%;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         float: left;
         margin-top: 3%;
+        height: 300px;
+        overflow-y: auto;
+    }
+    .anwser::-webkit-scrollbar {
+        width: 2px;
+    }
+
+    .anwser::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+    }
+
+    .anwser::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    }
+    .anwser ul {
+        width: 100%;
+    }
+    .anwser ul li {
+        width: 100%;
+        display: flex;
+        padding: 5px;
     }
     .anwser__item {
-        width: 46%;
-        min-height: 50px;
-    }
-    .picture {
         width: 22%;
-        margin-left: 5%;
-        float: left;
-        min-height: 100px;
-    }
-    .picture img {
-        width: 100%;
-        height: auto;
+        margin-left: 8px;
     }
     .submit {
         margin: 40px auto;
@@ -276,9 +304,9 @@
     }
     .sentence {
         position: fixed;
-        width: 200px;
+        width: 10%;
         top: 10%;
-        right: 2%;
+        right: 1%;
     }
     .display-flex {
         display: flex;
@@ -310,7 +338,11 @@
     .display-flex li {
         box-sizing: border-box;
         width: 24%;
-        margin: 0;
+        padding: 5px;
+        text-align: center;
+    }
+    .display-flex li a {
+        color: red;
     }
     .text-header {
         font-size: 20px;

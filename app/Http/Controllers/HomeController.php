@@ -12,6 +12,7 @@ use Auth;
 use Log;
 use Carbon\Carbon;
 use App\ResultTest;
+use App\ExamPhoto;
 
 class HomeController extends Controller
 {
@@ -72,12 +73,18 @@ class HomeController extends Controller
         $subjectId = $this->getSubjectID($subject);
         $examId = $this->getLastestExam($subjectId);
         $class = Auth::user()->class;
-        $exams = Exam::selectRaw('exams.stt, exams.content, exams.ans_a, exams.ans_b, exams.ans_c, exams.ans_d, exams.picture, exams.exam_id, subjects.id as id, subjects.name, subjects.time_test, exams.exam_id, exams.class')
+        $exams = Exam::selectRaw('exams.exam_id, subjects.id as id, subjects.name, subjects.time_test, exams.class, exams.num_sentence')
                     ->join('subjects', 'subjects.id', '=', 'exams.subject_id')
                     ->where('exams.class', $class)
                     ->where('exam_id', $examId)
                     ->get();
-        return $exams;
+        $photos = ExamPhoto::select('photo')
+                        ->where('exam_id', $examId)
+                        ->get();
+        return [
+            'exam' => $exams,
+            'photo' => $photos
+        ];
     }
 
     public function getLastestExam($subjectId)
@@ -146,7 +153,7 @@ class HomeController extends Controller
 
     public function getExamResult($subjectId, $examId, $class)
     {
-        $result = ExamResult::selectRaw('stt, ans')
+        $result = ExamResult::selectRaw('ans')
                             ->where('subject_id', $subjectId)
                             ->where('exam_id', $examId)
                             ->where('class', $class)
