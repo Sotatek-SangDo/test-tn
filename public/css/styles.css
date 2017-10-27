@@ -184,7 +184,8 @@ a:hover {
         font-size: 2.4em;
     }
     .container {
-        width: 94vw;
+        width: 88vw;
+        padding-left: 0;
     }
 }
 .container.login {
