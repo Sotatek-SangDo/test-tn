@@ -1,12 +1,12 @@
 <template>
-    <div class="container">
+    <div>
         <h2 id='ct' style="background-color: #FFFF00; opacity: 1; text-align: center" >{{ time}}</h2>
         <embed src="http://thitracnghiem.cf/storage/15090159220114.mp3" style="opacity: 0; display: none;" id="sound">
         <div class="exams">
             <div class="test-header">
                 <h1>Bài kiểm tra môn {{ subject }}</h1>
                 <span>Thời gian: {{ hours }} phút</span>
-                <div class="note"> (Phải chọn hết đáp án cho tất cả các câu hỏi trước phi hết giờ.)</div>
+                <div class="note"> (Phải chọn hết đáp án cho tất cả các câu hỏi trước khi hết giờ.)</div>
             </div>
             <div class="test-content">
                 <form method="post" action="/get-mark">
@@ -256,12 +256,12 @@
     }
     .button-change {
         position: fixed;
-        top: 15%;
+        top: 19%;
         left: 1%;
     }
     .button-show {
         position: fixed;
-        top: 15%;
+        top: 19%;
         right: 1%;
     }
     .photo {
@@ -281,16 +281,19 @@
         height: 300px;
         overflow-y: auto;
     }
-    .anwser::-webkit-scrollbar {
+    .anwser::-webkit-scrollbar,
+    .sentence::-webkit-scrollbar {
         width: 2px;
     }
 
-    .anwser::-webkit-scrollbar-track {
+    .anwser::-webkit-scrollbar-track.
+    .sentence::-webkit-scrollbar-track {
         -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
         border-radius: 10px;
     }
 
-    .anwser::-webkit-scrollbar-thumb {
+    .anwser::-webkit-scrollbar-thumb,
+    .sentence::-webkit-scrollbar-thumb {
         border-radius: 10px;
         -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
     }
@@ -313,7 +316,7 @@
     .sentence {
         position: fixed;
         width: 10%;
-        top: 20%;
+        top: 22%;
         right: 1%;
     }
     .display-flex {
@@ -329,25 +332,33 @@
         }
         .display-flex li {
             padding: 5px;
-            width: 9% !important;
+            width: 20% !important;
         }
         .button-change {
-            top: 94%;
+            top: 90%;
         }
         .button-show {
-            top: 94%;
+            top: 90%;
         }
         .anwser{
-            top: 50%;
-            width: 45%;
+            top: 42%;
+            width: 50%;
+            z-index: 999;
         }
         .sentence {
-            top: 8%;
-            right: 0;
-            width: 100%;
-            left: 0;
+            top: 61%;
+            right: 5%;
+            width: 50%;
             background: #fff;
-            padding-top: 8px;
+            padding-top: 0;
+            z-index: 999;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            float: left;
+            height: 180px;
+            overflow-y: auto;
+            border: 1px solid #bfbfbf;
         }
         .text-header {
             font-size: 13px !important;

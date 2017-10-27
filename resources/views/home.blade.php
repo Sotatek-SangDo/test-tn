@@ -52,7 +52,7 @@
     </script>
 @endsection
 @section('content')
-<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+<div class="mdl-grid mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-card mdl-shadow--4dp" style="text-align: center; margin: 3% auto;">
     <div class="test">
         <h1>Danh sách bài test</h1>
         <ul class="demo-list-item mdl-list">

@@ -16,8 +16,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- <script src = "https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script> -->
-    <!-- <script src="https://code.getmdl.io/1.3.0/material.min.js"></script> -->
+    <script src = "https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="{{ asset('js/getmdl-select.js') }}"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
@@ -31,7 +31,7 @@
         <header class="mdl-layout__header mdl-layout__header--waterfall portfolio-header">
             <div class="mdl-layout__header-row portfolio-logo-row">
                 <span class="mdl-layout__title">
-                    <div class="portfolio-logo"></div>
+                    <a href="{{ url('/') }}"><div class="portfolio-logo"></div></a>
                     <span class="mdl-layout__title">Thi trac nghiem online</span>
                 </span>
             </div>
@@ -72,7 +72,7 @@
                     @endguest
             </nav>
         </div>
-        <main class="">
+        <main class="mdl-layout__content">
             <div class="container">
                 @yield('content')
             </div>

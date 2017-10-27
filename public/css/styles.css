@@ -79,6 +79,7 @@ body {
 }
 .container {
     min-height: 74.99vh;
+    width: 82vw;
 }
 .portfolio-navigation-row .is-active {
   position: relative;
@@ -173,4 +174,22 @@ footer {
 
 a:hover {
     text-decoration: none;
+}
+.mdl-layout__content {
+    width: 100vw;
+    margin: 20px 0;
+}
+@media screen and (max-width: 768px) {
+    .mdl-grid h1 {
+        font-size: 2.4em;
+    }
+    .container {
+        width: 94vw;
+    }
+}
+.container.login {
+    width: 50vw;
+}
+main {
+    overflow: initial !important;
 }
