@@ -11,7 +11,7 @@
                     <tr>
                         <th class="mdl-data-table__cell--non-numeric">Tên</th>
                         <th>Email</th>
-                        <th></th>
+                        <th style="text-align: left;">Kích hoạt</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -21,9 +21,14 @@
                                 <td class="mdl-data-table__cell--non-numeric"><a href="/manage/info-user/{{$user['email']}}">{{ $user['name'] }}</a></td>
                                 <td>{{ $user['email'] }}</td>
                                 <td>
-                                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-                                        <i class="material-icons">delete</i>
-                                    </button>
+                                    <form action="/manage/user-change" method="POST">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="id" value="{{ $user['id'] }}">
+                                        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+                                            <input type="checkbox" id="switch-1" name="is_active" class="mdl-switch__input" @if($user['is_active']) checked @endif onclick="$('form').submit()">
+                                            <span class="mdl-switch__label"></span>
+                                        </label>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

@@ -21,7 +21,7 @@
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
                             <div class="col-md-6">
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="email" id="email" name="email" value="{{ old('email') }}" required autofocus>
+                                    <input class="mdl-textfield__input" type="text" id="email" name="email" value="{{ old('email') }}" autofocus>
                                     <label class="mdl-textfield__label" for="email"></label>
                                 </div>
                                 @if ($errors->has('email'))

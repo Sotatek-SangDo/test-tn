@@ -12,6 +12,8 @@ class Exam extends Model
         'class',
         'subject_id',
         'num_sentence',
+        'start_time',
+        'end_time',
         'exam_id',
     ];
 
@@ -19,6 +21,8 @@ class Exam extends Model
         'class' => 'string',
         'subject_id' => 'integer',
         'num_sentence' => 'integer',
+        'start_time' => 'date_format:y-m-d H:i:s',
+        'end_time' => 'date_format:y-m-d H:i:s',
         'exam_id' => 'string',
     ];
 
@@ -31,6 +35,8 @@ class Exam extends Model
         'class' => 'string',
         'subject_id' => 'integer',
         'num_sentence' => 'integer',
+        'start_time' => 'date_format:y-m-d H:i:s',
+        'end_time' => 'date_format:y-m-d H:i:s',
         'exam_id' => 'string',
     ];
 }

@@ -15,7 +15,7 @@ class SubjectSeeder extends Seeder
         $data = [
             [
                 'name' => 'Toán',
-                'time_test' => '60',
+                'time_test' => '90',
             ],
            [
                 'name' => 'Toán1',
@@ -23,15 +23,15 @@ class SubjectSeeder extends Seeder
             ],
             [
                 'name' => 'Hóa',
-                'time_test' => '60',
+                'time_test' => '90',
             ],
             [
                 'name' => 'Lý',
-                'time_test' => '60',
+                'time_test' => '90',
             ],
             [
                 'name' => 'Anh',
-                'time_test' => '60',
+                'time_test' => '90',
             ],
         ];
 

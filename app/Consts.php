@@ -11,4 +11,7 @@ class Consts
     const ANH = 'anh';
 
     const LIMIT = 20;
+    const ACTIVE = 'on';
+    const IS_SHOW = 1;
+    const ON_TIME = 1;
 }

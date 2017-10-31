@@ -18,7 +18,11 @@ class ResultTestTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('subject_id');
             $table->date('date');
-            $table->integer('mark');
+            $table->float('mark');
+            $table->tinyInteger('is_show')->default(0);
+            $table->tinyInteger('is_on_time');
+            $table->string('exam_id');
+            $table->longText('errors');
             $table->timestamps();
         });
     }

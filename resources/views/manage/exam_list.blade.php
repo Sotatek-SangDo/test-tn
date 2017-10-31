@@ -48,7 +48,7 @@
                         <th>Môn</th>
                         <th>Thời gian làm bài</th>
                         <th>Lop</th>
-                        <th></th>
+                        <th style="text-align: left;">Hiển thị kết quả</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -61,9 +61,14 @@
                                 <td>{{ $exam['time_test'] }}</td>
                                 <td>{{ $exam['class'] }}</td>
                                 <td>
-                                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-                                        <i class="material-icons">delete</i>
-                                    </button>
+                                    <form action="/manage/exam-change" method="POST" id="show">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="id" value="{{ $exam['exam_id'] }}">
+                                        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+                                            <input type="checkbox" id="switch-1" name="is_show" class="mdl-switch__input" @if($exam['is_show']) checked @endif onclick="$('#show').submit()">
+                                            <span class="mdl-switch__label"></span>
+                                        </label>
+                                    </form>
                                 </td>
                                 <td>
                                     <div class="upload-exel">

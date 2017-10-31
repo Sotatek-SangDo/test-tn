@@ -13,6 +13,7 @@ use Log;
 use Carbon\Carbon;
 use App\ResultTest;
 use App\ExamPhoto;
+use App\News;
 
 class HomeController extends Controller
 {
@@ -24,7 +25,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->now = Carbon::now();
+        $this->now = Carbon::now('Asia/Ho_Chi_Minh');
     }
 
     /**
@@ -73,17 +74,29 @@ class HomeController extends Controller
         $subjectId = $this->getSubjectID($subject);
         $examId = $this->getLastestExam($subjectId);
         $class = Auth::user()->class;
-        $exams = Exam::selectRaw('exams.exam_id, subjects.id as id, subjects.name, subjects.time_test, exams.class, exams.num_sentence')
+        $exams = Exam::selectRaw('exams.exam_id, exams.end_time, exams.start_time, subjects.id as id, subjects.name, subjects.time_test, exams.class, exams.num_sentence')
                     ->join('subjects', 'subjects.id', '=', 'exams.subject_id')
                     ->where('exams.class', $class)
                     ->where('exam_id', $examId)
-                    ->get();
+                    ->first();
+        $startExam = Carbon::parse($exams['start_time']);
+        $endExam = Carbon::parse($exams['end_time']);
+        $now = Carbon::parse($this->now);
+        $diffEnd = $now->diffInSeconds($endExam)/60;
+        $isOnTime = 0;
+        $timeExam = intval($exams['time_test']);
+        if($now < $endExam && $now > $startExam) {
+            $isOnTime = 1;
+            $timeExam = $diffEnd;
+        }
         $photos = ExamPhoto::select('photo')
                         ->where('exam_id', $examId)
                         ->get();
         return [
             'exam' => $exams,
-            'photo' => $photos
+            'photo' => $photos,
+            'onTime' => $isOnTime,
+            'timeExam' => $timeExam
         ];
     }
 
@@ -92,7 +105,8 @@ class HomeController extends Controller
         $exam = Exam::select('exam_id')
                     ->where('subject_id', $subjectId)
                     ->where('class', Auth::user()->class)
-                    ->groupBy('subject_id')
+                    ->where('start_time', '<=', $this->now)
+                    ->where('end_time', '>=', $this->now)
                     ->groupBy('exam_id')
                     ->first();
         return $exam['exam_id'];
@@ -111,15 +125,14 @@ class HomeController extends Controller
             $examId = $request['exam_id'];
             $anwsers = $request['ans'];
             $subjectId = $request['subject'];
-            $results = $this->getResult($anwsers, $subjectId, $examId, $class);
-            $mark = $results['mark'];
-            $error = $results['error'];
-            return view('layouts.show_result', ['mark' => $mark, 'error' => $error]);
+            $onTime = $request['is_on_time'];
+            $results = $this->getResult($anwsers, $subjectId, $examId, $class, $onTime);
+            return view('layouts.show_result', ['mess' => 'Ban da hoan thanh bai thi!']);
         }
         return back();
     }
 
-    public function getResult($data, $subjectId, $examId, $class)
+    public function getResult($data, $subjectId, $examId, $class, $onTime)
     {
         $mark = 0;
         $error = [];
@@ -134,13 +147,10 @@ class HomeController extends Controller
                 array_push($error, $i+1);
             }
         }
-        $this->setMark($mark, $subjectId, $examId);
-        return [
-            'error' => $error,
-            'mark' => $mark
-        ];
+        return $this->setMark($mark, $subjectId, $examId, $onTime, $error);
+
     }
-    public function setMark($mark, $subjectId, $examId)
+    public function setMark($mark, $subjectId, $examId, $onTime, $error)
     {
         $result = new ResultTest();
         $result->subject_id = $subjectId;
@@ -148,6 +158,8 @@ class HomeController extends Controller
         $result->date = $this->now;
         $result->mark = $mark;
         $result->exam_id = $examId;
+        $result->is_on_time = $onTime;
+        $result->errors = json_encode($error);
         $result->save();
         return true;
     }
@@ -180,7 +192,33 @@ class HomeController extends Controller
         $results = ResultTest::selectRaw('date, subjects.name, mark, result_tests.exam_id')
                             ->join('subjects', 'subjects.id', '=', 'result_tests.subject_id')
                             ->where('result_tests.user_id', $user['id'])
+                            ->where('is_show', Consts::IS_SHOW)
                             ->get();
         return view('layouts.show_info', ['user' => $user, 'results' => $results ]);
+    }
+
+    public function getResultTest($subject)
+    {
+        $subjectId = $this->getSubjectID($subject);
+        $exam =  Exam::select('exam_id')
+                        ->where('subject_id', $subjectId)
+                        ->where('class', Auth::user()->class)
+                        ->orderByRaw('id DESC')
+                        ->first();
+        $results = ResultTest::selectRaw('users.name, result_tests.mark, result_tests.exam_id, result_tests.date')
+                                ->join('users', 'users.id', '=', 'result_tests.user_id')
+                                ->where('result_tests.exam_id', $exam['exam_id'])
+                                ->where('result_tests.subject_id', $subjectId)
+                                ->where('result_tests.is_show', Consts::IS_SHOW)
+                                ->where('result_tests.is_on_time', Consts::ON_TIME)
+                                ->orderByRaw('result_tests.mark DESC')
+                                ->get();
+        return view('layouts.result', ['results' => $results]);
+    }
+
+    public function allNews()
+    {
+        $news = News::all();
+        return view('layouts.news', ['news' => $news]);
     }
 }

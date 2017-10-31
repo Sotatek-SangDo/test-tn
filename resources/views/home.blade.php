@@ -52,38 +52,73 @@
     </script>
 @endsection
 @section('content')
-<div class="mdl-grid mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-card mdl-shadow--4dp" style="text-align: center; margin: 3% auto;">
+<div class="mdl-grid mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-card mdl-shadow--4dp" style="text-align: center; margin: 3% auto;">
     <div class="test">
         <h1>Danh sách bài test</h1>
         <ul class="demo-list-item mdl-list">
             <li class="mdl-list__item item">
                 <a href="{{ url('/test?mon=math') }}">
                     <i class="material-icons">border_color</i>
-                    <span class="mdl-list__item-primary-content">Toán</span>
+                    <span class="mdl-list__item-primary-content">Đề thi Toán</span>
                 </a>
             </li>
             <li class="mdl-list__item item">
                 <a href="{{ url('/test?mon=math1') }}">
                     <i class="material-icons">border_color</i>
-                    <span class="mdl-list__item-primary-content">Toán 1</span>
+                    <span class="mdl-list__item-primary-content">Đề thi Toán 1 tiết </span>
                 </a>
             </li>
             <li class="mdl-list__item item">
                 <a href="{{ url('/test?mon=ly') }}">
                     <i class="material-icons">border_color</i>
-                    <span class="mdl-list__item-primary-content">Lý</span>
+                    <span class="mdl-list__item-primary-content">Đề thi Lý</span>
                 </a>
             </li>
             <li class="mdl-list__item item">
                 <a href="{{ url('/test?mon=hoa') }}">
                     <i class="material-icons">border_color</i>
-                    <span class="mdl-list__item-primary-content">Hóa</span>
+                    <span class="mdl-list__item-primary-content">Đề thi Hóa</span>
                 </a>
             </li>
             <li class="mdl-list__item item">
                 <a href="{{ url('/test?mon=anh') }}">
                     <i class="material-icons">border_color</i>
-                    <span class="mdl-list__item-primary-content">Anh</span>
+                    <span class="mdl-list__item-primary-content">Đề thi Anh</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="test">
+        <h1>Danh sách kết quả</h1>
+        <ul class="demo-list-item mdl-list">
+            <li class="mdl-list__item item">
+                <a href="{{ url('/result/math') }}">
+                    <i class="material-icons">border_color</i>
+                    <span class="mdl-list__item-primary-content">Kết quả Toán</span>
+                </a>
+            </li>
+            <li class="mdl-list__item item">
+                <a href="{{ url('/result/math1') }}">
+                    <i class="material-icons">border_color</i>
+                    <span class="mdl-list__item-primary-content">Kết quả Toán 1 tiết </span>
+                </a>
+            </li>
+            <li class="mdl-list__item item">
+                <a href="{{ url('/result/ly') }}">
+                    <i class="material-icons">border_color</i>
+                    <span class="mdl-list__item-primary-content">Kết quả Lý</span>
+                </a>
+            </li>
+            <li class="mdl-list__item item">
+                <a href="{{ url('/result/hoa') }}">
+                    <i class="material-icons">border_color</i>
+                    <span class="mdl-list__item-primary-content">Kết quả Hóa</span>
+                </a>
+            </li>
+            <li class="mdl-list__item item">
+                <a href="{{ url('/result/anh') }}">
+                    <i class="material-icons">border_color</i>
+                    <span class="mdl-list__item-primary-content">Kết quả Anh</span>
                 </a>
             </li>
         </ul>

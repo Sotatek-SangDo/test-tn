@@ -20,7 +20,6 @@ class ResultTest extends Model
         'user_id' => 'integer',
         'subject_id' => 'integer',
         'date' => 'date',
-        'mark' => 'integer',
         'exam_id' => 'string'
     ];
 
@@ -33,7 +32,6 @@ class ResultTest extends Model
         'user_id' => 'integer',
         'subject_id' => 'integer',
         'date' => 'date',
-        'mark' => 'integer',
         'exam_id' => 'string'
     ];
 }

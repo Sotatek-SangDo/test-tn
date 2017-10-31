@@ -13,9 +13,9 @@ class AlterResultTestTable extends Migration
      */
     public function up()
     {
-        Schema::table('result_tests', function (Blueprint $table) {
-            $table->string('exam_id');
-        });
+        // Schema::table('result_tests', function (Blueprint $table) {
+        //     $table->string('exam_id');
+        // });
     }
 
     /**

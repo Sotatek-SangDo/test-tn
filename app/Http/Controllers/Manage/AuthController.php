@@ -11,6 +11,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use Carbon\Carbon;
+
 class AuthController extends Controller
 {
     use AuthenticatesUsers;

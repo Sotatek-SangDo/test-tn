@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" id="token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -16,7 +16,22 @@
     <script src="{{ asset('js/getmdl-select.js') }}"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <style type="text/css">
+        input {
+            height: 30px !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            border-bottom: 1px solid #ededed !important;
+            margin-bottom: 0 !important;
+        }
+        input:focus:invalid:focus {
+            border-color: : #ffffff;
+        }
+    </style>
     @yield('script')
 </head>
 <body>
@@ -68,6 +83,9 @@
                            <li class="dropdown">
                                 <a href="{{ route('hoc-vien') }}">Danh sách học viên</a>
                            </li>
+                           <li class="dropdown">
+                                <a href="{{ route('news') }}">Thêm tin tức</a>
+                           </li>
                         </ul>
 
                         <!-- Right Side Of Navbar -->
@@ -103,5 +121,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('script-footer')
 </body>
 </html>

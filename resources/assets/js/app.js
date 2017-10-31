@@ -9,8 +9,10 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 var VueResource = require('vue-resource');
+var VueQuillEditor = require('vue-quill-editor');
 
-window.Vue.use(VueResource);
+Vue.use(VueResource);
+Vue.use(VueQuillEditor);
 
 var _ = require('lodash');
 
@@ -22,6 +24,8 @@ var _ = require('lodash');
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('test-exam', require('./components/TestExam.vue'));
+Vue.component('add-news', require('./components/AddNews.vue'));
+
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('#token').attr('content');
 
 const app = new Vue({

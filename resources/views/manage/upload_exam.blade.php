@@ -22,6 +22,13 @@
         .class {
             margin-right: 30px;
         }
+        span.add-on {
+            width: 30px !important;
+            height: 30px !important;
+            text-align: center !important;
+            vertical-align: middle !important;
+            padding: 6px 0 0 7px !important;
+        }
     </style>
     <script type="text/javascript">
        function changeUpload(id) {
@@ -29,7 +36,6 @@
             if(typeof input[0].files[0].name != undefined) {
                 input.parent().parent().find('.upload').val(input[0].files[0].name);
             }
-
        }
     </script>
 @endsection
@@ -60,6 +66,18 @@
                                 <li class="mdl-menu__item">hoa</li>
                                 <li class="mdl-menu__item">anh</li>
                             </ul>
+                        </div>
+                        <div id="datetimepicker" class="input-append date">
+                            <input type="text" name="start_time" id="start-time" readonly placeholder="Chon thoi gian" onchange="getEndTime()" />
+                            <span class="add-on">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                            </span>
+                        </div>
+                        <div id="datetimepicker1" class="input-append date">
+                            <input type="text" name="end_time" readonly placeholder="Chon thoi gian" onchange="getEndTime()" />
+                            <span class="add-on">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                            </span>
                         </div>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input class="mdl-textfield__input" type="text" id="num" name="num" placeholder="Nhập số câu của đề">
@@ -106,4 +124,18 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script-footer')
+    <script src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js"></script>
+    <script type="text/javascript">
+        $('#datetimepicker').datetimepicker({
+            format: 'yyyy-MM-dd hh:mm:ss',
+            language: 'pt-BR'
+        });
+        $('#datetimepicker1').datetimepicker({
+            format: 'yyyy-MM-dd hh:mm:ss',
+            language: 'pt-BR'
+        });
+    </script>
 @endsection

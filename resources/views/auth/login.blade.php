@@ -36,6 +36,11 @@
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
+                                @if (Session::has('mess'))
+                                    <span class="help-block">
+                                        <strong>{{ Session::get('mess') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 

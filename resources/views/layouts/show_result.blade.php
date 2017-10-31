@@ -54,24 +54,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <h1 class="result-header">Kết quả bài thi</h1>
-        <div class="re-mark">
-            <span>Điểm thi: </span>
-            <span>{{ $mark }}</span>
-        </div>
-
-        <div class="error">
-            @if(count($error))
-                <span class="text"> Các câu lỗi: </span>
-                <ul class="list-group sentence-error">
-                    @foreach($error as $val)
-                        <li class="list-group-item">{{ $val }}</span>
-                    @endforeach
-                </ul>
-            @else
-                <span>Khong co cau nao loi</span>
-            @endif
-        </div>
+        <h1 class="result-header">{{ $mess }}</h1>
     </div>
 </div>
 @endsection

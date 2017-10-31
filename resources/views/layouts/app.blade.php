@@ -42,7 +42,8 @@
                         <a class="mdl-navigation__link {{ Request::is('login') ? 'is-active' : '' }}" href="{{ route('login') }}">Đăng nhập</a>
                         <a class="mdl-navigation__link {{ Request::is('register') ? 'is-active' : '' }}" href="{{ route('register') }}">Đăng kí</a>
                     @else
-                        <a class="mdl-navigation__link {{ Request::is('user/info') ? 'is-active' : '' }}" href="{{ route('info') }}">Thông tin tài khoản</a>
+                        <a class="mdl-navigation__link {{ Request::is('news') ? 'is-active' : '' }}" href="{{ route('news-list') }}">Tin Tức</a>
+                        <a class="mdl-navigation__link {{ Request::is('user/info') ? 'is-active' : '' }}" href="{{ route('info') }}">Tài khoản</a>
                         <a class="mdl-navigation__link {{ Request::is('user/update') ? 'is-active' : '' }}" href="{{ route('update-user') }}">Update tài khoản</a>
                         <a class="mdl-navigation__link" href="#">Hi {{ Auth::user()->name }}
                             <i class="glyphicon glyphicon-log-out" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"></i>
@@ -61,7 +62,8 @@
                         <a class="mdl-navigation__link {{ Request::is('login') ? 'is-active' : '' }}" href="{{ route('login') }}">Đăng nhập</a>
                         <a class="mdl-navigation__link {{ Request::is('register') ? 'is-active' : '' }}" href="{{ route('register') }}">Đăng kí</a>
                     @else
-                        <a class="mdl-navigation__link {{ Request::is('user/info') ? 'is-active' : '' }}" href="{{ route('info') }}">Thông tin tài khoản</a>
+                        <a class="mdl-navigation__link {{ Request::is('news') ? 'is-active' : '' }}" href="{{ route('news-list') }}">Tin Tức</a>
+                        <a class="mdl-navigation__link {{ Request::is('user/info') ? 'is-active' : '' }}" href="{{ route('info') }}">Tài khoản</a>
                         <a class="mdl-navigation__link {{ Request::is('user/update') ? 'is-active' : '' }}" href="{{ route('update-user') }}">Update tài khoản</a>
                         <a class="mdl-navigation__link" href="#">Hi {{ Auth::user()->name }}
                             <i class="glyphicon glyphicon-log-out" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"></i>

@@ -12,14 +12,14 @@
                 <form method="post" action="/get-mark">
                     <input type="hidden" name="_token" :value="token">
                     <div class="button-change">
-                        <div class="mdl-button mdl-js-button mdl-button--raised" @click="isShowAns=true" v-if="!isShowAns">Chọn đáp án</div>
-                        <div class="mdl-button mdl-js-button mdl-button--raised" @click="isShowAns=false" v-if="isShowAns">Ẩn chọn</div>
+                        <div class="mdl-button mdl-js-button mdl-button--raised" @click="isShowAns=true" v-show="!isShowAns">Chọn đáp án</div>
+                        <div class="mdl-button mdl-js-button mdl-button--raised" @click="isShowAns=false" v-show="isShowAns">Ẩn chọn</div>
                     </div>
                     <div class="button-show">
-                        <div class="mdl-button mdl-js-button mdl-button--raised" @click="isShow=true" v-if="!isShow">Câu chưa làm</div>
-                        <div class="mdl-button mdl-js-button mdl-button--raised" @click="isShow=false" v-if="isShow">Ẩn</div>
+                        <div class="mdl-button mdl-js-button mdl-button--raised" @click="isShow=true" v-show="!isShow">Câu chưa làm</div>
+                        <div class="mdl-button mdl-js-button mdl-button--raised" @click="isShow=false" v-show="isShow">Ẩn</div>
                     </div>
-                    <div class="anwser" v-if="isShowAns">
+                    <div class="anwser" v-show="isShowAns">
                         <ul class="list-group" for="ans-left">
                             <li class="list-group-item" v-for="anwser in anwsers" :id="'ans'+anwser">{{ anwser }}.
                                 <div class="anwser__item">
@@ -49,7 +49,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="photo">
+                    <div class="photo" v-show="timeNow >= timeStart">
                         <div class="photo-item" v-for="img in photo">
                             <img :src="img.photo">
                         </div>
@@ -58,13 +58,14 @@
                     <input type="hidden" name="exam_id" :value="exam_id">
                     <input type="hidden" name="class" :value="classes">
                     <input type="hidden" name="subject" :value="subjectId">
+                    <input type="hidden" name="is_on_time" :value="ontime">
                     <div class="submit">
                         <div class="mdl-button mdl-js-button mdl-button--raised" @click="checkSubmit()">Nộp bài</div>
                     </div>
                 </form>
             </div>
         </div>
-        <div class="sentence" v-if="start <= 180 || isShow">
+        <div class="sentence" v-show="start <= 180 || isShow">
             <ul class="list-group display-flex">
                 <li class="list-group-item" v-for="s in sentences" v-if="s"><a :href="'#ans'+s">{{ s }}</a></li>
             </ul>
@@ -99,11 +100,17 @@
                 isZero: 1,
                 isShow: false,
                 anwsers: [],
+                now: '',
+                ontime: '',
+                timeStart: ''
             }
         },
         computed: {
             formatValue() {
                 return this.value
+            },
+            timeNow() {
+                return this.now;
             }
         },
         methods: {
@@ -113,20 +120,34 @@
                 this.$http.get(url).then((response) => {
                     this.exams = response.data.exam;
                     this.photo = response.data.photo;
-                    if(this.exams.length) {
+                    this.ontime = response.data.onTime;
+                    this.hours = parseInt(this.exams.time_exam);
+                    if(this.exams) {
                         let i = 1;
                         let j = 1;
-                        this.sentences = Array.from(Array(this.exams[0].num_sentence), ()=> i++);
-                        this.anwsers = Array.from(Array(this.exams[0].num_sentence), ()=> j++);
-                        this.subject = this.exams[0].name;
-                        this.exam_id = this.exams[0].exam_id;
-                        this.subjectId = this.exams[0].id;
-                        this.classes = this.exams[0].class;
-                        this.hours = parseInt(this.exams[0].time_test);
-                        this.start = this.start * this.hours;
-                        this.showTime()
+                        this.sentences = Array.from(Array(this.exams.num_sentence), ()=> i++);
+                        this.anwsers = Array.from(Array(this.exams.num_sentence), ()=> j++);
+                        this.subject = this.exams.name;
+                        this.exam_id = this.exams.exam_id;
+                        this.subjectId = this.exams.id;
+                        this.classes = this.exams.class;
+                        this.start = this.start * parseInt(response.data.timeExam);
+                        this.timeStart = this.exams.start_time;
+                        this.now = this.currentdate();
+                        if(this.now >= this.timeStart) {
+                            this.showTime()
+                        }
                     }
                 })
+            },
+            currentdate() {
+                let currentdate = new Date();
+                return currentdate.getFullYear() + "-"
+                + (currentdate.getMonth()+1)  + "-"
+                + currentdate.getDate() + ' '
+                + currentdate.getHours() + ":"
+                + currentdate.getMinutes() + ":"
+                + currentdate.getSeconds()
             },
             hasPicture(picture) {
                 return picture ? true : false;

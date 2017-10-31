@@ -20,6 +20,8 @@ use App\ResultTest;
 use Auth;
 use App\Http\Services\UploadService;
 use App\ExamPhoto;
+use Carbon\Carbon;
+use App\News;
 
 class AdminController extends Controller
 {
@@ -39,10 +41,13 @@ class AdminController extends Controller
         {
             $action = $request['action'];
             $examId = $this->getExamID($action);
+            $subjectId = $this->getSubjectID($action);
             $exam = new Exam();
-            $exam->subject_id = $this->getSubjectID($action);
+            $exam->subject_id = $subjectId;
             $exam->exam_id = $examId;
             $exam->class = $request['class'];
+            $exam->start_time = $request['start_time'];
+            $exam->end_time = $request['end_time'];
             $exam->num_sentence = $request['num'];
             $exam->save();
             $this->addExamPhoto($examId, $request['import']);
@@ -111,12 +116,14 @@ class AdminController extends Controller
 
     public function ShowExam()
     {
-        $exams = Exam::selectRaw('exams.exam_id, subjects.name, subjects.time_test, exams.class as class')
+        $exams = Exam::selectRaw('exams.exam_id, subjects.name, subjects.time_test, exams.class as class, result_tests.is_show')
                         ->join('subjects', 'subjects.id', '=', 'exams.subject_id')
+                        ->join('result_tests', 'exams.exam_id', '=', 'result_tests.exam_id')
                         ->groupBy('exams.exam_id')
                         ->groupBy('subjects.name')
                         ->groupBy('subjects.time_test')
                         ->groupBy('exams.class')
+                        ->groupBy('result_tests.is_show')
                         ->paginate(Consts::LIMIT);
         return view('manage.exam_list', ['exams' => $exams]);
     }
@@ -197,5 +204,50 @@ class AdminController extends Controller
                             ->where('result_tests.user_id', $user['id'])
                             ->get();
         return view('manage.show_info', ['user' => $user, 'results' => $results ]);
+    }
+    public function changeActive(Request $request)
+    {
+        $user = User::findOrFail($request['id']);
+
+        if($request['is_active'] == Consts::ACTIVE) {
+            $user->is_active = 1;
+        }else {
+            $user->is_active = 0;
+
+        }
+        $user->save();
+        return back();
+    }
+
+    public function changeShow(Request $request)
+    {
+        if($request['is_show'] == Consts::ACTIVE) {
+            $show = 1;
+        }else {
+            $show = 0;
+        }
+        ResultTest::where('exam_id', $request['id'])->update(['is_show' => $show]);
+        return back();
+    }
+
+    public function news()
+    {
+        return view('manage.add_news');
+    }
+
+    public function store(Request $request)
+    {
+        $new = new News();
+        $new->title = $request['title'];
+        $new->content = $request['content'];
+        $new->thumbnail = $this->uploadService->uploadImg($request['import']);
+        $new->save();
+        return redirect()->route('list-news');
+    }
+
+    public function showNews()
+    {
+        $news = News::all();
+        return view('manage.list_news', ['news' => $news]);
     }
 }
