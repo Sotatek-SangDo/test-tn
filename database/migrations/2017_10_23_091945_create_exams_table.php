@@ -21,6 +21,7 @@ class CreateExamsTable extends Migration
             $table->dateTime('end_time');
             $table->string('class');
             $table->string('exam_id');
+            $table->tinyInteger('is_show')->default(0);
             $table->timestamps();
         });
     }

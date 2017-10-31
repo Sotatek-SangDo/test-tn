@@ -116,14 +116,12 @@ class AdminController extends Controller
 
     public function ShowExam()
     {
-        $exams = Exam::selectRaw('exams.exam_id, subjects.name, subjects.time_test, exams.class as class, result_tests.is_show')
+        $exams = Exam::selectRaw('exams.exam_id, subjects.name, subjects.time_test, exams.class as class, exams.is_show')
                         ->join('subjects', 'subjects.id', '=', 'exams.subject_id')
-                        ->join('result_tests', 'exams.exam_id', '=', 'result_tests.exam_id')
                         ->groupBy('exams.exam_id')
                         ->groupBy('subjects.name')
                         ->groupBy('subjects.time_test')
                         ->groupBy('exams.class')
-                        ->groupBy('result_tests.is_show')
                         ->paginate(Consts::LIMIT);
         return view('manage.exam_list', ['exams' => $exams]);
     }
@@ -227,6 +225,7 @@ class AdminController extends Controller
             $show = 0;
         }
         ResultTest::where('exam_id', $request['id'])->update(['is_show' => $show]);
+        Exam::where('exam_id', $request['id'])->update(['is_show' => $show]);
         return back();
     }
 
