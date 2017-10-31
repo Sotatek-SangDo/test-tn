@@ -81,7 +81,7 @@
                                                 <input type="hidden" name="class" value="{{ $exam['class'] }}">
                                                 <div class="mdl-button mdl-button--primary mdl-button--icon mdl-button--file">
                                                     <i class="material-icons">attach_file</i>
-                                                    <input type="file" id="uploadBtn" name="import" accept=".xlsx,.xls" onchange="changeUpload('#uploadBtn')">
+                                                    <input type="file" id="uploadBtn{{$key}}" name="import" accept=".xlsx,.xls" onchange="changeUpload('#uploadBtn{{$key}}')">
                                                 </div>
                                             </div>
                                         </form>
