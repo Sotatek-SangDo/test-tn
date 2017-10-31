@@ -122,6 +122,7 @@ class AdminController extends Controller
                         ->groupBy('subjects.name')
                         ->groupBy('subjects.time_test')
                         ->groupBy('exams.class')
+                        ->groupBy('exams.is_show')
                         ->paginate(Consts::LIMIT);
         return view('manage.exam_list', ['exams' => $exams]);
     }
