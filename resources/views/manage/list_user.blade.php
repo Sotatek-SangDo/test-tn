@@ -21,11 +21,11 @@
                                 <td class="mdl-data-table__cell--non-numeric"><a href="/manage/info-user/{{$user['email']}}">{{ $user['name'] }}</a></td>
                                 <td>{{ $user['email'] }}</td>
                                 <td>
-                                    <form action="/manage/user-change" method="POST">
+                                    <form action="/manage/user-change" method="POST" id="form{{$key}}">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="id" value="{{ $user['id'] }}">
-                                        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
-                                            <input type="checkbox" id="switch-1" name="is_active" class="mdl-switch__input" @if($user['is_active']) checked @endif onclick="$('form').submit()">
+                                        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch{{$key}}">
+                                            <input type="checkbox" id="switch{{$key}}" name="is_active" class="mdl-switch__input" @if($user['is_active']) checked @endif onclick="$('#form{{$key}}').submit()">
                                             <span class="mdl-switch__label"></span>
                                         </label>
                                     </form>

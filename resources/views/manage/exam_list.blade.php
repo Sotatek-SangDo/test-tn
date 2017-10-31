@@ -61,11 +61,11 @@
                                 <td>{{ $exam['time_test'] }}</td>
                                 <td>{{ $exam['class'] }}</td>
                                 <td>
-                                    <form action="/manage/exam-change" method="POST" id="show">
+                                    <form action="/manage/exam-change" method="POST" id="show{{$key}}">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="id" value="{{ $exam['exam_id'] }}">
-                                        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
-                                            <input type="checkbox" id="switch-1" name="is_show" class="mdl-switch__input" @if($exam['is_show']) checked @endif onclick="$('#show').submit()">
+                                        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch{{$key}}">
+                                            <input type="checkbox" id="switch{{$key}}" name="is_show" class="mdl-switch__input" @if($exam['is_show']) checked @endif onclick="$('#show{{$key}}').submit()">
                                             <span class="mdl-switch__label"></span>
                                         </label>
                                     </form>
