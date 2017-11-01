@@ -84,7 +84,15 @@
                                 <a href="{{ route('hoc-vien') }}">Danh sách học viên</a>
                            </li>
                            <li class="dropdown">
-                                <a href="{{ route('news') }}">Thêm tin tức</a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">tin tức</a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="{{ route('news') }}">Thêm mới</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('list-news') }}">Tin tức</a>
+                                    </li>
+                                </ul>
                            </li>
                         </ul>
 

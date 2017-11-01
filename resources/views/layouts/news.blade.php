@@ -14,14 +14,7 @@
                         <img class="article-image" src="{{$new['thumbnail']}}" border="0" alt="">
                     </div>
                     <div class="mdl-cell mdl-cell--8-col">
-                        <h2 class="mdl-card__title-text">{{$new['title']}}</h2>
-                       <!--  <div class="mdl-card__supporting-text padding-top">
-                            <span>Posted 2 days ago</span>
-                            <div id="tt1" class=" icon material-icons portfolio-share-btn">share</div>
-                            <div class="mdl-tooltip" for="tt1">
-                                Share via social media
-                            </div>
-                        </div> -->
+                        <h2 class="mdl-card__title-text" style="font-size: 2rem; font-weight: 500; color: #444">{{$new['title']}}</h2>
                         <div class="mdl-card__supporting-text no-left-padding">
                             {!! str_limit($new['content'], 100) !!}
                         </div>

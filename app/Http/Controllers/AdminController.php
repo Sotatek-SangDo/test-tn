@@ -250,4 +250,11 @@ class AdminController extends Controller
         $news = News::all();
         return view('manage.list_news', ['news' => $news]);
     }
+
+    public function destroy(Request $request, $id)
+    {
+        $new = News::findOrFail($id);
+        $new->delete();
+        return redirect()->route('list-news');
+    }
 }

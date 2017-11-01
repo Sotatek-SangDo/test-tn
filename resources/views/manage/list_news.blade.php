@@ -21,9 +21,13 @@
                                 <td class="mdl-data-table__cell--non-numeric">{{ $key+1 }}</a></td>
                                 <td style="text-align: left;">{{ $new['title'] }}</td>
                                 <td>
-                                     <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-                                        <i class="material-icons">delete</i>
-                                    </button>
+                                    <form action="/manage/news/{{$new['id']}}" method="post">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        {{ csrf_field() }}
+                                        <button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+                                            <i class="material-icons">delete</i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
