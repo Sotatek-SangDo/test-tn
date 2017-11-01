@@ -50,7 +50,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/manage') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        Manage
                     </a>
                 </div>
                 @auth

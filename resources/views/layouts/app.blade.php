@@ -36,7 +36,7 @@
             </div>
             <div class="mdl-layout__header-row portfolio-navigation-row mdl-layout--large-screen-only">
                 <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
-                    <a class="mdl-navigation__link {{ Request::is('/') ? 'is-active' : '' }}" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
+                    <a class="mdl-navigation__link {{ Request::is('/') ? 'is-active' : '' }}" href="{{ url('/') }}">Trang chủ</a>
                     @guest
                         <a class="mdl-navigation__link {{ Request::is('login') ? 'is-active' : '' }}" href="{{ route('login') }}">Đăng nhập</a>
                         <a class="mdl-navigation__link {{ Request::is('register') ? 'is-active' : '' }}" href="{{ route('register') }}">Đăng kí</a>
@@ -56,7 +56,7 @@
         </header>
         <div class="mdl-layout__drawer mdl-layout--small-screen-only">
             <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
-                <a class="mdl-navigation__link {{ Request::is('/') ? 'is-active' : '' }}" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
+                <a class="mdl-navigation__link {{ Request::is('/') ? 'is-active' : '' }}" href="{{ url('/') }}">Trang chủ</a>
                     @guest
                         <a class="mdl-navigation__link {{ Request::is('login') ? 'is-active' : '' }}" href="{{ route('login') }}">Đăng nhập</a>
                         <a class="mdl-navigation__link {{ Request::is('register') ? 'is-active' : '' }}" href="{{ route('register') }}">Đăng kí</a>
