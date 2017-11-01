@@ -34,15 +34,18 @@
                     <a href="{{ url('/') }}"><div class="portfolio-logo"></div></a>
                     <span class="mdl-layout__title">Thi trac nghiem online</span>
                 </span>
+                <span class="mdl-layout__title">
+                    <img src="/images/logo.jpg" width="1000" height="250">
+                </span>
             </div>
             <div class="mdl-layout__header-row portfolio-navigation-row mdl-layout--large-screen-only">
                 <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
                     <a class="mdl-navigation__link {{ Request::is('/') ? 'is-active' : '' }}" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
+                    <a class="mdl-navigation__link {{ Request::is('news') ? 'is-active' : '' }}" href="{{ route('news-list') }}">Tin Tức</a>
                     @guest
                         <a class="mdl-navigation__link {{ Request::is('login') ? 'is-active' : '' }}" href="{{ route('login') }}">Đăng nhập</a>
                         <a class="mdl-navigation__link {{ Request::is('register') ? 'is-active' : '' }}" href="{{ route('register') }}">Đăng kí</a>
                     @else
-                        <a class="mdl-navigation__link {{ Request::is('news') ? 'is-active' : '' }}" href="{{ route('news-list') }}">Tin Tức</a>
                         <a class="mdl-navigation__link {{ Request::is('user/info') ? 'is-active' : '' }}" href="{{ route('info') }}">Tài khoản</a>
                         <a class="mdl-navigation__link {{ Request::is('user/update') ? 'is-active' : '' }}" href="{{ route('update-user') }}">Update tài khoản</a>
                         <a class="mdl-navigation__link" href="#">Hi {{ Auth::user()->name }}
@@ -57,12 +60,12 @@
         </header>
         <div class="mdl-layout__drawer mdl-layout--small-screen-only">
             <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
-                 <a class="mdl-navigation__link {{ Request::is('/') ? 'is-active' : '' }}" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
+                <a class="mdl-navigation__link {{ Request::is('/') ? 'is-active' : '' }}" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
+                <a class="mdl-navigation__link {{ Request::is('news') ? 'is-active' : '' }}" href="{{ route('news-list') }}">Tin Tức</a>
                     @guest
                         <a class="mdl-navigation__link {{ Request::is('login') ? 'is-active' : '' }}" href="{{ route('login') }}">Đăng nhập</a>
                         <a class="mdl-navigation__link {{ Request::is('register') ? 'is-active' : '' }}" href="{{ route('register') }}">Đăng kí</a>
                     @else
-                        <a class="mdl-navigation__link {{ Request::is('news') ? 'is-active' : '' }}" href="{{ route('news-list') }}">Tin Tức</a>
                         <a class="mdl-navigation__link {{ Request::is('user/info') ? 'is-active' : '' }}" href="{{ route('info') }}">Tài khoản</a>
                         <a class="mdl-navigation__link {{ Request::is('user/update') ? 'is-active' : '' }}" href="{{ route('update-user') }}">Update tài khoản</a>
                         <a class="mdl-navigation__link" href="#">Hi {{ Auth::user()->name }}
@@ -80,9 +83,10 @@
             </div>
             <footer class="mdl-mini-footer">
                 <div class="mdl-mini-footer__left-section">
-                    <div class="mdl-logo">Product by SH team.</div>
+                    <img src="/images/logo-footer.png" width="175" height="125" style="float: left;">
+                    <div class="mdl-logo logo-footer">Product by SH team.</div>
                 </div>
-                <div class="mdl-mini-footer__right-section">
+                <div class="mdl-mini-footer__right-section" style="padding-top: 3%">
                     <ul class="mdl-mini-footer__link-list">
                         <li><a href="#">Giúp đỡ</a></li>
                         <li><a href="#">Liên Hệ</a></li>

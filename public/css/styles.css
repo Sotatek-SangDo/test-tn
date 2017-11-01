@@ -24,6 +24,7 @@ body {
   font-size: 14px;
   text-align: center;
   font-weight: 300;
+  margin-right: 2%;
 }
 
 .is-compact .mdl-layout__title span {
@@ -31,7 +32,7 @@ body {
 }
 
 .portfolio-logo-row {
-  min-height: 200px;
+  min-height: 250px;
 }
 
 .is-compact .portfolio-logo-row {
@@ -193,4 +194,8 @@ a:hover {
 }
 main {
     overflow: initial !important;
+}
+.logo-footer {
+    font-size: 1.8em;
+    padding-top: 8%;
 }

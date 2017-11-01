@@ -30,7 +30,8 @@ Route::post('/manage/logout','Manage\AuthController@logout')->name('manage-logou
 Route::get('/user/update', 'HomeController@updateLayout')->name('update-user');
 Route::post('/user/update', 'HomeController@updateUser')->name('updated');
 Route::get('/user/info', 'HomeController@showInfo')->name('info');
-Route::get('/news', 'HomeController@allNews')->name('news-list');
+Route::get('/news', 'NewsController@allNews')->name('news-list');
+Route::get('/news/{id}', 'NewsController@show')->name('news-show');
 
 Route::group(['prefix'=> 'manage', 'middleware' => 'admin'], function () {
     Route::get('/','Manage\AuthController@index')->name('manage');

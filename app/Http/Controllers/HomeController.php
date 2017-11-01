@@ -203,22 +203,18 @@ class HomeController extends Controller
         $exam =  Exam::select('exam_id')
                         ->where('subject_id', $subjectId)
                         ->where('class', Auth::user()->class)
-                        ->orderByRaw('id DESC')
-                        ->first();
-        $results = ResultTest::selectRaw('users.name, result_tests.mark, result_tests.exam_id, result_tests.date')
+                        ->get();
+        $results = [];
+        foreach ($exam as $key => $val) {
+            $results[] = ResultTest::selectRaw('users.name, result_tests.mark, result_tests.exam_id, result_tests.date')
                                 ->join('users', 'users.id', '=', 'result_tests.user_id')
-                                ->where('result_tests.exam_id', $exam['exam_id'])
+                                ->where('result_tests.exam_id', $val['exam_id'])
                                 ->where('result_tests.subject_id', $subjectId)
                                 ->where('result_tests.is_show', Consts::IS_SHOW)
                                 ->where('result_tests.is_on_time', Consts::ON_TIME)
                                 ->orderByRaw('result_tests.mark DESC')
                                 ->get();
-        return view('layouts.result', ['results' => $results]);
-    }
-
-    public function allNews()
-    {
-        $news = News::all();
-        return view('layouts.news', ['news' => $news]);
+        }
+        return view('layouts.result', ['results' => $results, 'exams' => $exam]);
     }
 }
