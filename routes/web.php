@@ -13,7 +13,7 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/list-test', 'HomeController@index')->name('exams');
 
 Route::get('/test', 'HomeController@test');
 
@@ -30,7 +30,7 @@ Route::post('/manage/logout','Manage\AuthController@logout')->name('manage-logou
 Route::get('/user/update', 'HomeController@updateLayout')->name('update-user');
 Route::post('/user/update', 'HomeController@updateUser')->name('updated');
 Route::get('/user/info', 'HomeController@showInfo')->name('info');
-Route::get('/news', 'NewsController@allNews')->name('news-list');
+Route::get('/', 'NewsController@allNews')->name('home');
 Route::get('/news/{id}', 'NewsController@show')->name('news-show');
 
 Route::group(['prefix'=> 'manage', 'middleware' => 'admin'], function () {

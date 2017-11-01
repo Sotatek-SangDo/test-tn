@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h3 style="text-align: center;">Tin tức</h3>
+            <h3 style="text-align: center; font-size: 4rem">Tin tức</h3>
             <div class="mdl-grid portfolio-max-width">
             @if(count($news))
                 @foreach($news as $new)
