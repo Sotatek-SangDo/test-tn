@@ -118,6 +118,7 @@ class AdminController extends Controller
     {
         $exams = Exam::selectRaw('exams.exam_id, exams.id, subjects.name, subjects.time_test, exams.class as class, exams.is_show')
                         ->join('subjects', 'subjects.id', '=', 'exams.subject_id')
+                        ->orderByRaw('id DESC')
                         ->paginate(Consts::LIMIT);
         return view('manage.exam_list', ['exams' => $exams]);
     }
