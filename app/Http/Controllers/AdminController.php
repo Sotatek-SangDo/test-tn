@@ -49,6 +49,7 @@ class AdminController extends Controller
             $exam->start_time = $request['start_time'];
             $exam->end_time = $request['end_time'];
             $exam->num_sentence = $request['num'];
+            $exam->test_time = $request['test_time'];
             $exam->save();
             $this->addExamPhoto($examId, $request['import']);
             Session::put('success', 'Upload exam success');
@@ -116,7 +117,7 @@ class AdminController extends Controller
 
     public function ShowExam()
     {
-        $exams = Exam::selectRaw('exams.exam_id, exams.id, subjects.name, subjects.time_test, exams.class as class, exams.is_show')
+        $exams = Exam::selectRaw('exams.exam_id, exams.id, subjects.name, exams.test_time, exams.class as class, exams.is_show')
                         ->join('subjects', 'subjects.id', '=', 'exams.subject_id')
                         ->orderByRaw('id DESC')
                         ->paginate(Consts::LIMIT);
@@ -155,12 +156,12 @@ class AdminController extends Controller
 
     public function ShowResult()
     {
-        $results = ExamResult::selectRaw('exam_results.exam_id, subjects.name, subjects.time_test, exam_results.class')
+        $results = ExamResult::selectRaw('exam_results.exam_id, subjects.name, exams.test_time, exam_results.class')
                         ->join('subjects', 'subjects.id', '=', 'exam_results.subject_id')
                         ->groupBy('exam_results.exam_id')
                         ->groupBy('subjects.name')
                         ->groupBy('exam_results.class')
-                        ->groupBy('subjects.time_test')
+                        ->groupBy('exams.test_time')
                         ->paginate(Consts::LIMIT);
         return view('manage.result_list', ['results' => $results]);
     }

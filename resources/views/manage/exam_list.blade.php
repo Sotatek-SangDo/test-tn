@@ -59,7 +59,7 @@
                             <tr>
                                 <td class="mdl-data-table__cell--non-numeric">{{ $exam['exam_id'] }}</td>
                                 <td>{{ $exam['name'] }}</td>
-                                <td>{{ $exam['time_test'] }}</td>
+                                <td>{{ $exam['test_time'] }}</td>
                                 <td>{{ $exam['class'] }}</td>
                                 <td>
                                     <form action="/manage/exam-change" method="POST" id="show{{$key}}">

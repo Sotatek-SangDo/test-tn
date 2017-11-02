@@ -15,6 +15,7 @@ class Exam extends Model
         'start_time',
         'end_time',
         'exam_id',
+        'test_time'
     ];
 
     protected $casts = [
@@ -24,6 +25,7 @@ class Exam extends Model
         'start_time' => 'date_format:y-m-d H:i:s',
         'end_time' => 'date_format:y-m-d H:i:s',
         'exam_id' => 'string',
+        'test_time' => 'string',
     ];
 
     /**
@@ -38,5 +40,6 @@ class Exam extends Model
         'start_time' => 'date_format:y-m-d H:i:s',
         'end_time' => 'date_format:y-m-d H:i:s',
         'exam_id' => 'string',
+        'test_time' => 'string',
     ];
 }

@@ -74,7 +74,7 @@ class HomeController extends Controller
         $subjectId = $this->getSubjectID($subject);
         $examId = $this->getLastestExam($subjectId);
         $class = Auth::user()->class;
-        $exams = Exam::selectRaw('exams.exam_id, exams.end_time, exams.start_time, subjects.id as id, subjects.name, subjects.time_test, exams.class, exams.num_sentence')
+        $exams = Exam::selectRaw('exams.exam_id, exams.end_time, exams.start_time, subjects.id as id, subjects.name, exams.test_time, exams.class, exams.num_sentence')
                     ->join('subjects', 'subjects.id', '=', 'exams.subject_id')
                     ->where('exams.class', $class)
                     ->where('exam_id', $examId)
@@ -84,7 +84,7 @@ class HomeController extends Controller
         $now = Carbon::parse($this->now);
         $diffEnd = $now->diffInSeconds($endExam)/60;
         $isOnTime = 0;
-        $timeExam = intval($exams['time_test']);
+        $timeExam = intval($exams['test_time']);
         if($now < $endExam && $now > $startExam) {
             $isOnTime = 1;
             $timeExam = $diffEnd;

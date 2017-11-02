@@ -22,7 +22,7 @@
                             <tr>
                                 <td class="mdl-data-table__cell--non-numeric">{{ $result['exam_id'] }}</td>
                                 <td>{{ $result['name'] }}</td>
-                                <td>{{ $result['time_test'] }}</td>
+                                <td>{{ $result['test_time'] }}</td>
                                 <td>{{ $result['class'] }}</td>
                                 <td>
 

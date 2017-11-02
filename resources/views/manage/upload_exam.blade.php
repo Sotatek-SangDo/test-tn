@@ -68,13 +68,13 @@
                             </ul>
                         </div>
                         <div id="datetimepicker" class="input-append date">
-                            <input type="text" name="start_time" id="start-time" readonly placeholder="Chon thoi gian" onchange="getEndTime()" />
+                            <input type="text" name="start_time" id="start-time" readonly placeholder="Chon thoi gian"/>
                             <span class="add-on">
                                 <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                             </span>
                         </div>
                         <div id="datetimepicker1" class="input-append date">
-                            <input type="text" name="end_time" readonly placeholder="Chon thoi gian" onchange="getEndTime()" />
+                            <input type="text" name="end_time" readonly placeholder="Chon thoi gian"/>
                             <span class="add-on">
                                 <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                             </span>
@@ -82,6 +82,10 @@
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input class="mdl-textfield__input" type="text" id="num" name="num" placeholder="Nhập số câu của đề">
                             <label class="mdl-textfield__label" for="num"></label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="test_time" name="test_time" placeholder="Nhập thời gian thi(phút)">
+                            <label class="mdl-textfield__label" for="test_time"></label>
                         </div>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--file">
                             <input class="mdl-textfield__input upload" placeholder="upload ảnh đề thi" type="text" id="uploadFile" readonly/>
