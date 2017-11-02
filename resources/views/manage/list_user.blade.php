@@ -11,6 +11,7 @@
                     <tr>
                         <th class="mdl-data-table__cell--non-numeric">Tên</th>
                         <th>Email</th>
+                        <th>Lớp</th>
                         <th style="text-align: left;">Kích hoạt</th>
                     </tr>
                 </thead>
@@ -20,6 +21,7 @@
                             <tr>
                                 <td class="mdl-data-table__cell--non-numeric"><a href="/manage/info-user/{{$user['email']}}">{{ $user['name'] }}</a></td>
                                 <td>{{ $user['email'] }}</td>
+                                <td>{{ $user['class'] }}</td>
                                 <td>
                                     <form action="/manage/user-change" method="POST" id="form{{$key}}">
                                         {{ csrf_field() }}

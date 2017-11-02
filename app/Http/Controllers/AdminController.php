@@ -116,13 +116,8 @@ class AdminController extends Controller
 
     public function ShowExam()
     {
-        $exams = Exam::selectRaw('exams.exam_id, subjects.name, subjects.time_test, exams.class as class, exams.is_show')
+        $exams = Exam::selectRaw('exams.exam_id, exams.id, subjects.name, subjects.time_test, exams.class as class, exams.is_show')
                         ->join('subjects', 'subjects.id', '=', 'exams.subject_id')
-                        ->groupBy('exams.exam_id')
-                        ->groupBy('subjects.name')
-                        ->groupBy('subjects.time_test')
-                        ->groupBy('exams.class')
-                        ->groupBy('exams.is_show')
                         ->paginate(Consts::LIMIT);
         return view('manage.exam_list', ['exams' => $exams]);
     }
@@ -256,5 +251,12 @@ class AdminController extends Controller
         $new = News::findOrFail($id);
         $new->delete();
         return redirect()->route('list-news');
+    }
+
+    public function destroyExam(Request $request, $id)
+    {
+        $exam = Exam::findOrFail($id);
+        $exam->delete();
+        return redirect()->route('list-exam');
     }
 }

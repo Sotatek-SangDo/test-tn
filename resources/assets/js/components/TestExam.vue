@@ -121,7 +121,7 @@
                     this.exams = response.data.exam;
                     this.photo = response.data.photo;
                     this.ontime = response.data.onTime;
-                    this.hours = parseInt(this.exams.time_exam);
+                    this.hours = parseInt(this.exams.time_test);
                     if(this.exams) {
                         let i = 1;
                         let j = 1;

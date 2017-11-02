@@ -48,6 +48,7 @@
                         <th>Môn</th>
                         <th>Thời gian làm bài</th>
                         <th>Lop</th>
+                        <th></th>
                         <th style="text-align: left;">Hiển thị kết quả</th>
                         <th></th>
                     </tr>
@@ -68,6 +69,15 @@
                                             <input type="checkbox" id="switch{{$key}}" name="is_show" class="mdl-switch__input" @if($exam['is_show']) checked @endif onclick="$('#show{{$key}}').submit()">
                                             <span class="mdl-switch__label"></span>
                                         </label>
+                                    </form>
+                                </td>
+                                <td style="text-align: center;">
+                                    <form action="/manage/exam/{{$exam['id']}}" method="post">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        {{ csrf_field() }}
+                                        <button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+                                            <i class="material-icons">delete</i>
+                                        </button>
                                     </form>
                                 </td>
                                 <td>
