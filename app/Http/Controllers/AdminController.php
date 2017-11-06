@@ -158,7 +158,8 @@ class AdminController extends Controller
     {
         $results = ExamResult::selectRaw('exam_results.exam_id, subjects.name, exams.test_time, exam_results.class')
                         ->join('subjects', 'subjects.id', '=', 'exam_results.subject_id')
-                        ->groupBy('exam_results.exam_id')
+                        ->join('exams', 'exams.exam_id', '=', 'exam_results.exam_id')
+			->groupBy('exam_results.exam_id')
                         ->groupBy('subjects.name')
                         ->groupBy('exam_results.class')
                         ->groupBy('exams.test_time')

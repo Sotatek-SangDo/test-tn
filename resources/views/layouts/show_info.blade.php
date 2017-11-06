@@ -22,6 +22,7 @@
                         <th>Ma De</th>
                         <th>Ngay thi</th>
                         <th>Điểm</th>
+			<th>Cau sai</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,6 +33,7 @@
                                 <td>{{ $result['exam_id'] }}</td>
                                 <td>{{ date('Y-m-d', strtotime($result['date'])) }}</td>
                                 <td>{{ $result['mark'] }}</td>
+				<td>{{ $result['errors'] }}</td>
                             </tr>
                         @endforeach
                     @endif

@@ -106,7 +106,7 @@ class HomeController extends Controller
                     ->where('subject_id', $subjectId)
                     ->where('class', Auth::user()->class)
                     ->where('start_time', '<=', $this->now)
-                    ->where('end_time', '>=', $this->now)
+		    ->where('end_time', '>=', $this->now)
                     ->groupBy('exam_id')
                     ->first();
         return $exam['exam_id'];
@@ -137,9 +137,11 @@ class HomeController extends Controller
         $mark = 0;
         $error = [];
         $results = $this->getExamResult($subjectId, $examId, $class);
-        $num = $results['numResult'];
+        $exam = Exam::where('exam_id', $examId)->first();
+	$num = $exam['num_sentence'];
         $examResult = $results['examResult'];
-        $oneMarkOfSentence = 10 / $num;
+        $oneMarkOfSentence = round((10 / $num), 4);
+	Log::info($oneMarkOfSentence);
         for($i = 0 ; $i < count($data); $i++) {
             if($examResult[$i]['ans'] == $data[$i+1]) {
                 $mark += $oneMarkOfSentence;
@@ -189,7 +191,7 @@ class HomeController extends Controller
     public function showInfo()
     {
         $user = User::find(Auth::user()->id);
-        $results = ResultTest::selectRaw('date, subjects.name, mark, result_tests.exam_id')
+        $results = ResultTest::selectRaw('date, subjects.name, mark, result_tests.exam_id, errors')
                             ->join('subjects', 'subjects.id', '=', 'result_tests.subject_id')
                             ->where('result_tests.user_id', $user['id'])
                             ->where('is_show', Consts::IS_SHOW)
